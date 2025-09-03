@@ -8,7 +8,7 @@ package com.mycompany.lab_01_b;
  * Lab 01B
  * 29/08/2025
  */
-public class CourseGrades {
+public class CourseGrades implements Analyzable {
     private GradedActivity[] grades;
     private final int NUM_GRADES = 4;
     
@@ -30,6 +30,45 @@ public class CourseGrades {
     
     public void setFinalExam(FinalExam aFinalExam) {
         grades[3] = aFinalExam;
+    }
+    
+    @Override
+    public double getAverage() {
+        double sum = 0;
+        int count = 0;
+        
+        for (GradedActivity g : grades) {
+            sum += g.getScore();
+            count++;
+        }
+        
+        return sum / count;
+    }
+
+    @Override
+    public GradedActivity getHighest() {
+        GradedActivity highest = null;
+        
+        for (GradedActivity g : grades) {
+            if (highest == null || (g.getScore() > highest.getScore())) {
+                highest = g;
+            }
+        }
+        
+        return highest;
+    }
+
+    @Override
+    public GradedActivity getLowest() {
+        GradedActivity lowest = null;
+        
+        for (GradedActivity g : grades) {
+            if (lowest == null || (g.getScore() < lowest.getScore())) {
+                lowest = g;
+            }
+        }
+        
+        return lowest;
     }
 
     @Override
